@@ -126,9 +126,6 @@ public class MainActivity extends ThemeableActivity implements CheckRefreshClick
 
     private boolean pick_photos;
 
-
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,7 +192,6 @@ public class MainActivity extends ThemeableActivity implements CheckRefreshClick
             }
         }
 
-        mSwipeRefreshLayout=findViewById(R.id.swipeRefreshLayout);
         recyclerView = findViewById(R.id.recyclerView);
         SelectorModeManager.Callback callback = new SelectorModeManager.SimpleCallback() {
             @Override
@@ -352,8 +348,6 @@ public class MainActivity extends ThemeableActivity implements CheckRefreshClick
         int c2 = getResources().getColor(R.color.gred);
         int c3 = getResources().getColor(R.color.ggreen);
         int c4=getResources().getColor(R.color.gyellow);
-        mSwipeRefreshLayout.setColorSchemeColors(c1,c2,c3,c4);
-        mSwipeRefreshLayout.setOnRefreshListener(() -> refreshPhotos());
         setSystemUiFlags();
     }
 
@@ -478,7 +472,6 @@ public class MainActivity extends ThemeableActivity implements CheckRefreshClick
                             mediaProvider = null;
                             new Handler().postDelayed(new Runnable() {
                                 @Override public void run() {
-                                    mSwipeRefreshLayout.setRefreshing(false);
                                 }
                             }, 6000);
 
@@ -490,8 +483,6 @@ public class MainActivity extends ThemeableActivity implements CheckRefreshClick
             @Override
             public void timeout() {
                 //handle timeout
-                mSwipeRefreshLayout.setRefreshing(false);
-
                 if (mediaProvider != null) {
                     mediaProvider.onDestroy();
                 }
