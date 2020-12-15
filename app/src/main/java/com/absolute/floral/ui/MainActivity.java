@@ -151,9 +151,9 @@ public class MainActivity extends ThemeableActivity implements CheckRefreshClick
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.pinbk);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_camera_white);
         toolbar.setBackgroundColor(!pick_photos ? toolbarColor : accentColor);
         toolbar.setTitleTextColor(!pick_photos ? textColorPrimary : accentTextColor);
 
@@ -251,6 +251,7 @@ public class MainActivity extends ThemeableActivity implements CheckRefreshClick
         });
 
         final FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
         fab.setOnClickListener(view -> fabClicked(view));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Drawable d = ContextCompat.getDrawable(this,
@@ -531,8 +532,9 @@ public class MainActivity extends ThemeableActivity implements CheckRefreshClick
       public boolean onOptionsItemSelected(MenuItem item) {
        switch (item.getItemId()) {
            case android.R.id.home:
-               final Intent intent=new Intent(MainActivity.this,PinningActivity.class);
-               startActivity(intent);
+//               final Intent intent=new Intent(MainActivity.this,PinningActivity.class);
+//               startActivity(intent);
+               fabClicked(new View(this));
                break;
            case R.id.bottommenu:
                ShowRoundDialogFragment showRoundDialogFragment =
