@@ -151,18 +151,18 @@ public class MainActivity extends ThemeableActivity implements CheckRefreshClick
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.pinbk);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.pinbk);
         toolbar.setBackgroundColor(!pick_photos ? toolbarColor : accentColor);
         toolbar.setTitleTextColor(!pick_photos ? textColorPrimary : accentTextColor);
 
         Typeface font = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/google.ttf");
-        for(int i = 0; i < toolbar.getChildCount(); i++){
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
             View view = toolbar.getChildAt(i);
-            if(view instanceof TextView){
+            if (view instanceof TextView) {
                 TextView tv = (TextView) view;
-                if(tv.getText().equals(toolbar.getTitle())){
+                if (tv.getText().equals(toolbar.getTitle())) {
                     tv.setTypeface(font);
                     break;
                 }
@@ -753,11 +753,23 @@ public class MainActivity extends ThemeableActivity implements CheckRefreshClick
     }
 
     public void showDialog() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.PauseDialog);
-        final String[] items ={"Name","Size","Date"};
-        builder.setSingleChoiceItems(items, -1,
-                (dialog, which) -> {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.PauseDialog);
+        final String[] items = {"Name", "Size", "Date"};
+        int selected = 0;
+        switch (Settings.getInstance(getApplicationContext()).sortAlbumsBy()) {
+            case SortUtil.BY_NAME:
+                selected = 0;
+                break;
+            case SortUtil.BY_SIZE:
+                selected = 1;
+                break;
+            case SortUtil.BY_DATE:
+                selected = 2;
+                break;
+        }
 
+        builder.setSingleChoiceItems(items, selected,
+                (dialog, which) -> {
                     int choice = 0;
                     switch (which) {
                         case 0:
